@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Color codes
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo "${BLUE}🔍 Running pre-commit checks...${NC}"
+
+# Format check first (fastest)
+echo "\n${YELLOW}💅 Checking code formatting...${NC}"
+pnpm format:check
+
+# Run lint-staged (includes eslint)
+echo "\n${YELLOW}🔬 Running lint checks...${NC}"
+pnpm lint-staged
+
+# Run type checking
+echo "\n${YELLOW}📝 Checking TypeScript types...${NC}"
+pnpm typecheck
+
+# If everything passes, format the files
+echo "\n${YELLOW}✨ Formatting code...${NC}"
+pnpm format:write
+
+echo "\n${GREEN}✅ All checks passed! Committing changes...${NC}"
