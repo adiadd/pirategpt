@@ -1,12 +1,18 @@
-export default function HomePage() {
+import { Sidebar } from "~/components/sidebar";
+import { Chat } from "~/components/chat";
+import { SpoilerModal } from "~/components/spoiler-modal";
+import { ThemeProvider } from "~/contexts/ThemeContext";
+
+export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Chat with <span className="text-[hsl(280,100%,70%)]">One Piece</span>
-        </h1>
-        <p className="text-2xl text-white">Coming soon ...</p>
+    <ThemeProvider>
+      <div className="flex h-screen">
+        <Sidebar />
+        <main className="flex flex-1 flex-col pt-16 md:pt-0">
+          <Chat />
+        </main>
+        <SpoilerModal />
       </div>
-    </main>
+    </ThemeProvider>
   );
 }
