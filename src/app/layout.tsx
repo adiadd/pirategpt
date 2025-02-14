@@ -1,14 +1,19 @@
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { siteConfig } from "~/config/site";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000000",
+};
+
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: "#000000",
   manifest: "/manifest.json",
   appleWebApp: {
     title: siteConfig.name,
