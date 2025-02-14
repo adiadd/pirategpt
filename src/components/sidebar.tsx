@@ -1,17 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { History, Menu, Ship, Twitter, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "~/components/theme-toggle";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { Menu, X, Ship, Twitter, History } from "lucide-react";
 import { cn } from "~/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { ThemeToggle } from "~/components/theme-toggle";
-
-function truncateMiddle(text: string, startLength: number, endLength: number) {
-  if (text.length <= startLength + endLength + 3) return text;
-  return `${text.slice(0, startLength)}...${text.slice(-endLength)}`;
-}
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,28 +70,40 @@ export function Sidebar() {
 
               {/* Main content area */}
               <div className="mt-16 flex h-[calc(100%-4rem)] flex-1 flex-col md:mt-0 md:h-[calc(100%-5rem)]">
-                <ScrollArea className="flex-1">
-                  <div className="space-y-4 p-4">
-                    <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground-light">
-                      <History className="h-5 w-5" />
-                      <span className="font-medium">Previous Chat History</span>
+                <div className="relative flex-1">
+                  <ScrollArea className="h-full">
+                    <div className="space-y-4 p-4">
+                      <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground-light">
+                        <History className="h-5 w-5" />
+                        <span className="font-medium">
+                          Previous Chat History
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        {Array.from({ length: 5 }).map((_, i) => {
+                          const chapterTitle = `Chapter ${1000 + i}: The Journey Continues`;
+                          return (
+                            <Button
+                              key={i}
+                              variant="ghost"
+                              className="w-full justify-start overflow-hidden text-left font-normal text-muted-foreground transition-colors hover:bg-background-light/10 hover:text-foreground dark:text-muted-foreground-light dark:hover:bg-background/10 dark:hover:text-foreground-light"
+                            >
+                              <div className="relative w-full">
+                                <div className="relative pr-4">
+                                  <span className="relative">
+                                    {chapterTitle}
+                                  </span>
+                                  <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background from-60% via-background/90 via-30% to-transparent dark:from-background-light dark:via-background-light/90" />
+                                </div>
+                              </div>
+                            </Button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      {Array.from({ length: 5 }).map((_, i) => {
-                        const chapterTitle = `Chapter ${1000 + i}: The Journey Continues`;
-                        return (
-                          <Button
-                            key={i}
-                            variant="ghost"
-                            className="w-full justify-start text-left font-normal text-muted-foreground transition-colors hover:bg-background-light/10 hover:text-foreground dark:text-muted-foreground-light dark:hover:bg-background/10 dark:hover:text-foreground-light"
-                          >
-                            {truncateMiddle(chapterTitle, 15, 8)}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </ScrollArea>
+                  </ScrollArea>
+                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent dark:from-background-light" />
+                </div>
               </div>
 
               {/* Footer */}
