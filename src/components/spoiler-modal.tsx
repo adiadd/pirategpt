@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
 
 export function SpoilerModal() {
   const [isOpen, setIsOpen] = useState(true);
@@ -52,7 +52,8 @@ export function SpoilerModal() {
               with the latest releases.
             </p>
             <Button
-              className="w-full bg-primary text-primary-foreground transition-opacity hover:opacity-90 dark:bg-primary-light dark:text-primary-foreground-light"
+              className="w-full"
+              variant="destructive"
               onClick={closeModal}
             >
               I understand, continue
