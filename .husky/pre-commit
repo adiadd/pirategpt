@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Format check first (fastest)
+echo "\n💅 Checking code formatting..."
+pnpm format:check
+
+# Run lint-staged (includes eslint)
+echo "\n🔬 Running lint checks..."
+pnpm lint-staged
+
+# Run type checking
+echo "\n📝 Checking TypeScript types..."
+pnpm typecheck
+
+# If everything passes, format the files
+echo "\n✨ Formatting code..."
+pnpm format:write
+
+echo "\n✅ All checks passed! Committing changes..."
