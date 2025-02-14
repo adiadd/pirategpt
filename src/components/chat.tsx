@@ -1,8 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp, Bot, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ArrowUp, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
+import JollyRoger from "~/assets/op-jolly-rancher.svg";
 import { Avatar } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -42,7 +43,7 @@ export function Chat() {
               >
                 {message.role === "assistant" && (
                   <Avatar className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary dark:bg-primary-light">
-                    <Bot className="h-4 w-4 text-primary-foreground dark:text-primary-foreground-light" />
+                    <JollyRoger className="h-8 w-8 text-foreground dark:text-background" />
                   </Avatar>
                 )}
                 <div className={"flex max-w-[85%] flex-col gap-2"}>
@@ -148,9 +149,9 @@ export function Chat() {
                     repeat: Number.POSITIVE_INFINITY,
                     ease: "linear",
                   }}
-                  className="text-[#0A6ABF] dark:text-[#F28907]"
+                  className="text-foreground dark:text-background"
                 >
-                  <Bot className="h-5 w-5" />
+                  <JollyRoger className="h-5 w-5" />
                 </motion.div>
               ) : (
                 <Button
