@@ -1,16 +1,16 @@
 "use client";
 
-import { useTheme } from "~/contexts/ThemeContext";
 import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <motion.button
       className="relative h-6 w-12 rounded-full bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary dark:bg-primary-light/20 dark:focus:ring-primary-light"
-      onClick={toggleTheme}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="Toggle theme"
     >
       <motion.div
