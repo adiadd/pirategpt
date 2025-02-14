@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { siteConfig } from "~/config/site";
 import { cn } from "~/lib/utils";
 
 export function Sidebar() {
@@ -35,7 +36,7 @@ export function Sidebar() {
           <div className="flex items-center gap-2">
             <Ship className="h-5 w-5 text-primary dark:text-primary-light" />
             <span className="text-lg font-semibold text-foreground dark:text-foreground-light">
-              One Piece Chat
+              {siteConfig.name}
             </span>
           </div>
 
@@ -61,7 +62,7 @@ export function Sidebar() {
                   <div className="flex items-center gap-2">
                     <Ship className="h-6 w-6 text-primary dark:text-primary-light" />
                     <h1 className="text-xl font-bold text-foreground dark:text-foreground-light">
-                      One Piece Chat
+                      {siteConfig.name}
                     </h1>
                   </div>
                   <ThemeToggle />
