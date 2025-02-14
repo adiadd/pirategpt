@@ -16,8 +16,8 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
+    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx,json,md}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx,json,md}\" --cache",
     "prepare": "husky"
   },
   "dependencies": {
@@ -55,11 +55,11 @@
   "packageManager": "pnpm@9.15.4",
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mdx}": [
-      "prettier --check",
+      "prettier --write",
       "eslint"
     ],
     "*.{json,md}": [
-      "prettier --check"
+      "prettier --write"
     ]
   }
 }
