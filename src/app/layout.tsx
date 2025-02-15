@@ -1,10 +1,10 @@
-import "~/styles/globals.css";
-
+import { Analytics } from "@vercel/analytics/next";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { JsonLd } from "~/components/json-ld";
 import { ThemeProvider } from "~/components/theme-provider";
 import { siteConfig } from "~/config/site";
+import "~/styles/globals.css";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -72,6 +72,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Analytics />;
         </ThemeProvider>
         <JsonLd />
       </body>
