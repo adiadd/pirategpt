@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://pirategpt.agnilabs.xyz/sitemap.xml 
+
+# Disallow all API endpoints
+Disallow: /api/

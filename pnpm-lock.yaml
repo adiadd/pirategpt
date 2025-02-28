@@ -117,6 +117,272 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.17
+      turbo:
+        specifier: ^2.4.4
+        version: 2.4.4
+      typescript:
+        specifier: ^5.5.3
+        version: 5.7.3
+
+  apps/web:
+    dependencies:
+      '@libsql/client':
+        specifier: ^0.9.0
+        version: 0.9.0
+      '@onepiece-chat/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@onepiece-chat/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@onepiece-chat/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@onepiece-chat/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@radix-ui/react-avatar':
+        specifier: ^1.1.3
+        version: 1.1.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-scroll-area':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot':
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react@18.3.18)(react@18.3.1)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.10.1
+        version: 0.10.1(typescript@5.7.3)(zod@3.24.2)
+      '@vercel/analytics':
+        specifier: ^1.5.0
+        version: 1.5.0(next@15.2.0(@babel/core@7.26.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      drizzle-orm:
+        specifier: ^0.33.0
+        version: 0.33.0(@libsql/client@0.9.0)(@types/react@18.3.18)(react@18.3.1)
+      framer-motion:
+        specifier: ^12.4.2
+        version: 12.4.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      geist:
+        specifier: ^1.3.0
+        version: 1.3.1(next@15.2.0(@babel/core@7.26.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      lucide-react:
+        specifier: ^0.475.0
+        version: 0.475.0(react@18.3.1)
+      next:
+        specifier: ^15.2.0
+        version: 15.2.0(@babel/core@7.26.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-themes:
+        specifier: ^0.4.4
+        version: 0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      tailwind-merge:
+        specifier: ^3.0.1
+        version: 3.0.1
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.17)
+      zod:
+        specifier: ^3.23.3
+        version: 3.24.2
+    devDependencies:
+      '@svgr/webpack':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.7.3)
+      '@types/eslint':
+        specifier: ^8.56.10
+        version: 8.56.12
+      '@types/node':
+        specifier: ^20.14.10
+        version: 20.17.19
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.5(@types/react@18.3.18)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.1.0
+        version: 8.24.0(@typescript-eslint/parser@8.24.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
+      '@typescript-eslint/parser':
+        specifier: ^8.1.0
+        version: 8.24.0(eslint@8.57.1)(typescript@5.7.3)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.20(postcss@8.5.2)
+      drizzle-kit:
+        specifier: ^0.24.0
+        version: 0.24.2
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      eslint-config-next:
+        specifier: ^15.0.1
+        version: 15.1.7(eslint@8.57.1)(typescript@5.7.3)
+      eslint-plugin-drizzle:
+        specifier: ^0.2.3
+        version: 0.2.3(eslint@8.57.1)
+      postcss:
+        specifier: ^8.4.39
+        version: 8.5.2
+      prettier:
+        specifier: ^3.3.2
+        version: 3.5.1
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.5
+        version: 0.6.11(prettier@3.5.1)
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.17
+      typescript:
+        specifier: ^5.5.3
+        version: 5.7.3
+
+  packages/config:
+    dependencies:
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.17
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.17)
+    devDependencies:
+      '@types/node':
+        specifier: ^20.14.10
+        version: 20.17.19
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      prettier:
+        specifier: ^3.3.2
+        version: 3.5.1
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.5
+        version: 0.6.11(prettier@3.5.1)
+      typescript:
+        specifier: ^5.5.3
+        version: 5.7.3
+
+  packages/database:
+    dependencies:
+      '@libsql/client':
+        specifier: ^0.9.0
+        version: 0.9.0
+      drizzle-orm:
+        specifier: ^0.33.0
+        version: 0.33.0(@libsql/client@0.9.0)(@types/react@18.3.18)(react@18.3.1)
+      zod:
+        specifier: ^3.23.3
+        version: 3.24.2
+    devDependencies:
+      '@types/node':
+        specifier: ^20.14.10
+        version: 20.17.19
+      drizzle-kit:
+        specifier: ^0.24.0
+        version: 0.24.2
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      eslint-plugin-drizzle:
+        specifier: ^0.2.3
+        version: 0.2.3(eslint@8.57.1)
+      prettier:
+        specifier: ^3.3.2
+        version: 3.5.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.7.3
+
+  packages/ui:
+    dependencies:
+      '@onepiece-chat/config':
+        specifier: workspace:*
+        version: link:../config
+      '@radix-ui/react-avatar':
+        specifier: ^1.1.3
+        version: 1.1.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-scroll-area':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot':
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react@18.3.18)(react@18.3.1)
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      framer-motion:
+        specifier: ^12.4.2
+        version: 12.4.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lucide-react:
+        specifier: ^0.475.0
+        version: 0.475.0(react@18.3.1)
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      tailwind-merge:
+        specifier: ^3.0.1
+        version: 3.0.1
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.17)
+    devDependencies:
+      '@types/node':
+        specifier: ^20.14.10
+        version: 20.17.19
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.5(@types/react@18.3.18)
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      prettier:
+        specifier: ^3.3.2
+        version: 3.5.1
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.5
+        version: 0.6.11(prettier@3.5.1)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.17
+      typescript:
+        specifier: ^5.5.3
+        version: 5.7.3
+
+  packages/utils:
+    dependencies:
+      zod:
+        specifier: ^3.23.3
+        version: 3.24.2
+    devDependencies:
+      '@types/node':
+        specifier: ^20.14.10
+        version: 20.17.19
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      prettier:
+        specifier: ^3.3.2
+        version: 3.5.1
       typescript:
         specifier: ^5.5.3
         version: 5.7.3
@@ -1667,6 +1933,13 @@ packages:
     resolution: {integrity: sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==}
     engines: {node: '>= 0.4'}
 
+  autoprefixer@10.4.20:
+    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -2311,6 +2584,9 @@ packages:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
     engines: {node: '>=12.20.0'}
 
+  fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
+
   framer-motion@12.4.2:
     resolution: {integrity: sha512-pW307cQKjDqEuO1flEoIFf6TkuJRfKr+c7qsHAJhDo4368N/5U8/7WU8J+xhd9+gjmOgJfgp+46evxRRFM39dA==}
     peerDependencies:
@@ -2679,6 +2955,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@3.1.3:
@@ -2835,6 +3112,10 @@ packages:
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+
+  normalize-range@0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
   npm-run-path@5.3.0:
@@ -3415,6 +3696,40 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  turbo-darwin-64@2.4.4:
+    resolution: {integrity: sha512-5kPvRkLAfmWI0MH96D+/THnDMGXlFNmjeqNRj5grLKiry+M9pKj3pRuScddAXPdlxjO5Ptz06UNaOQrrYGTx1g==}
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.4.4:
+    resolution: {integrity: sha512-/gtHPqbGQXDFhrmy+Q/MFW2HUTUlThJ97WLLSe4bxkDrKHecDYhAjbZ4rN3MM93RV9STQb3Tqy4pZBtsd4DfCw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.4.4:
+    resolution: {integrity: sha512-SR0gri4k0bda56hw5u9VgDXLKb1Q+jrw4lM7WAhnNdXvVoep4d6LmnzgMHQQR12Wxl3KyWPbkz9d1whL6NTm2Q==}
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.4.4:
+    resolution: {integrity: sha512-COXXwzRd3vslQIfJhXUklgEqlwq35uFUZ7hnN+AUyXx7hUOLIiD5NblL+ETrHnhY4TzWszrbwUMfe2BYWtaPQg==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-windows-64@2.4.4:
+    resolution: {integrity: sha512-PV9rYNouGz4Ff3fd6sIfQy5L7HT9a4fcZoEv8PKRavU9O75G7PoDtm8scpHU10QnK0QQNLbE9qNxOAeRvF0fJg==}
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.4.4:
+    resolution: {integrity: sha512-403sqp9t5sx6YGEC32IfZTVWkRAixOQomGYB8kEc6ZD+//LirSxzeCHCnM8EmSXw7l57U1G+Fb0kxgTcKPU/Lg==}
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.4.4:
+    resolution: {integrity: sha512-N9FDOVaY3yz0YCOhYIgOGYad7+m2ptvinXygw27WPLQvcZDl3+0Sa77KGVlLSiuPDChOUEnTKE9VJwLSi9BPGQ==}
+    hasBin: true
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -5102,6 +5417,16 @@ snapshots:
 
   async-function@1.0.0: {}
 
+  autoprefixer@10.4.20(postcss@8.5.2):
+    dependencies:
+      browserslist: 4.24.4
+      caniuse-lite: 1.0.30001699
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.1.1
+      postcss: 8.5.2
+      postcss-value-parser: 4.2.0
+
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
@@ -5876,6 +6201,8 @@ snapshots:
     dependencies:
       fetch-blob: 3.2.0
 
+  fraction.js@4.3.7: {}
+
   framer-motion@12.4.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       motion-dom: 12.0.0
@@ -6401,6 +6728,8 @@ snapshots:
   node-releases@2.0.19: {}
 
   normalize-path@3.0.0: {}
+
+  normalize-range@0.1.2: {}
 
   npm-run-path@5.3.0:
     dependencies:
@@ -7020,6 +7349,33 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@2.8.1: {}
+
+  turbo-darwin-64@2.4.4:
+    optional: true
+
+  turbo-darwin-arm64@2.4.4:
+    optional: true
+
+  turbo-linux-64@2.4.4:
+    optional: true
+
+  turbo-linux-arm64@2.4.4:
+    optional: true
+
+  turbo-windows-64@2.4.4:
+    optional: true
+
+  turbo-windows-arm64@2.4.4:
+    optional: true
+
+  turbo@2.4.4:
+    optionalDependencies:
+      turbo-darwin-64: 2.4.4
+      turbo-darwin-arm64: 2.4.4
+      turbo-linux-64: 2.4.4
+      turbo-linux-arm64: 2.4.4
+      turbo-windows-64: 2.4.4
+      turbo-windows-arm64: 2.4.4
 
   type-check@0.4.0:
     dependencies:

@@ -1,0 +1,25 @@
+{
+  "extends": "../../packages/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@onepiece-chat/ui": ["../../packages/ui/src"],
+      "@onepiece-chat/config": ["../../packages/config/src"],
+      "@onepiece-chat/database": ["../../packages/database/src"],
+      "@onepiece-chat/utils": ["../../packages/utils/src"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "jsx": "preserve",
+    "noEmit": true,
+    "allowJs": true,
+    "incremental": true,
+    "resolveJsonModule": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

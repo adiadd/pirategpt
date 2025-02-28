@@ -1,57 +1,71 @@
-# PirateGPT
+# One Piece Chat
 
-chat with One Piece 🏴‍☠️
+A chat application themed around One Piece.
 
-a fun chat app using AI to chat with the entire One Piece manga.
+## What's inside?
 
-> ⚠️ important: this project is still in development
+This monorepo uses [Turborepo](https://turbo.build/repo) with [pnpm](https://pnpm.io/) as a package manager. It includes the following packages/apps:
 
-# todo: front-end
+### Apps and Packages
 
-- [ ] setup drizzle with d1 for client-side data management
-- [ ] create responsive chat interface with message history
-- [ ] implement streaming responses from AI
-- [ ] add character selection interface (chat with specific characters)
-- [ ] auth? clerk? maybe phase 2
-- [ ] integrate AI SDK for front-end interactions with the model
-- [ ] add loading states and error handling for API requests
+- `web`: a [Next.js](https://nextjs.org/) app
+- `@onepiece-chat/ui`: a React component library shared by applications
+- `@onepiece-chat/config`: shared configuration (ESLint, Tailwind CSS, TypeScript, etc.)
+- `@onepiece-chat/database`: database schema and client using Drizzle ORM
+- `@onepiece-chat/utils`: shared utility functions
 
-# todo: data processing
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-- [x] scrape one piece chapters
-- [x] put them in store (D1 database)
-- [x] chunk manga content for efficient retrieval
-- [x] setup vector store for embeddings
+### Utilities
 
-# todo: back-end implementation
+This Turborepo has some additional tools already set up for you:
 
-- [ ] design and implement API endpoints for chat interactions
-- [ ] create serverless functions on Cloudflare Workers
-- [ ] implement authentication and session management
-- [ ] set up database models and relationships
-- [ ] configure Durable Objects for stateful conversation management
-- [ ] develop middleware for request validation and processing
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+- [Tailwind CSS](https://tailwindcss.com/) for styling
 
-# todo: RAG implementation
+### Build
 
-- [ ] implement retrieval logic to fetch relevant manga content
-- [ ] optimize vector search for speed and relevance
-- [ ] create prompt engineering templates for consistent AI responses
-- [ ] implement context window management for long conversations
-- [ ] add character-specific knowledge and personality filters
+To build all apps and packages, run the following command:
 
-# todo: pipeline & deployment
+```
+pnpm build
+```
 
-- [ ] build CI/CD pipeline for Cloudflare deployment
-- [ ] implement caching strategy for frequent queries
-- [ ] setup monitoring and analytics for usage patterns
-- [ ] optimize Cloudflare Workers for performance
-- [ ] connect front-end to back-end through API endpoints
-- [ ] implement rate limiting and usage quotas
+### Develop
 
-# todo: testing & polish
+To develop all apps and packages, run the following command:
 
-- [ ] create automated tests for RAG accuracy
-- [ ] perform user testing for UI/UX improvements
-- [ ] benchmark performance across different load scenarios
-- [ ] documentation for API endpoints and usage
+```
+pnpm dev
+```
+
+### Remote Caching
+
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+
+```
+npx turbo login
+```
+
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+npx turbo link
+```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)

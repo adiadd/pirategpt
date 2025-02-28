@@ -1,0 +1,26 @@
+{
+  "name": "@onepiece-chat/utils",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx,json,md}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx,json,md}\" --cache"
+  },
+  "dependencies": {
+    "zod": "^3.23.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  }
+}

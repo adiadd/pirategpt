@@ -2,7 +2,7 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import { type NextConfig } from "next";
+import type { NextConfig } from "next";
 import "./src/env.js";
 
 const config: NextConfig = {
@@ -27,6 +27,12 @@ const config: NextConfig = {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return config;
   },
+  transpilePackages: [
+    "@onepiece-chat/ui",
+    "@onepiece-chat/config",
+    "@onepiece-chat/database",
+    "@onepiece-chat/utils",
+  ],
 };
 
 export default config;
