@@ -7,6 +7,10 @@ NC='\033[0m' # No Color
 
 echo "${BLUE}🔍 Running pre-commit checks...${NC}"
 
+# Change directory to ui folder
+echo "\n${YELLOW}📂 Changing to ui directory...${NC}"
+cd ui || { echo "${RED}❌ Failed to change to ui directory${NC}"; exit 1; }
+
 # Format check first (fastest)
 echo "\n${YELLOW}💅 Checking code formatting...${NC}"
 if ! pnpm format:check; then
@@ -31,5 +35,8 @@ if ! pnpm typecheck; then
     echo "${RED}❌ Type checking failed${NC}"
     exit 1
 fi
+
+# Change back to the root directory
+cd ..
 
 echo "\n${GREEN}✅ All checks passed! Committing changes...${NC}"
