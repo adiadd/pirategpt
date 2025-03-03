@@ -35,14 +35,26 @@
 	],
 	"d1_databases": [
 		{
-			"binding": "DB",
+			"binding": "OP_SCRAPER_DB",
 			"database_name": "one-piece-scraper-db",
 			"database_id": "99f46c4e-5c02-47bd-8612-859431b89e8f"
+		},
+		{
+			"binding": "PIRATEGPT_CHAT_DB",
+			"database_name": "pirategpt-chat-db",
+			"database_id": "fef01002-a75f-45b6-8598-64e4641a4cdf"
 		}
 	],
 	"ai": {
 		"binding": "AI"
-	}
+	},
+	"workflows": [
+		{
+			"name": "rag",
+			"binding": "RAG_WORKFLOW",
+			"class_name": "RAGWorkflow"
+		}
+	]
 	/**
 	 * Bindings
 	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including

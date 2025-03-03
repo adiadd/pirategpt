@@ -4,8 +4,9 @@ interface Env {
 	CLOUDFLARE_ACCOUNT_ID: string;
 	CLOUDFLARE_D1_DATABASE_ID: string;
 	CLOUDFLARE_TOKEN: string;
-	MY_DURABLE_OBJECT: DurableObjectNamespace /* MyDurableObject */;
-	DB: D1Database;
+	OP_SCRAPER_DB: D1Database;
+	PIRATEGPT_CHAT_DB: D1Database;
 	ONE_PIECE_VECTORS: VectorizeIndex;
 	AI: Ai;
+	RAG_WORKFLOW: Workflow;
 }

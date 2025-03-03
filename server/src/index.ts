@@ -64,6 +64,14 @@
 // 	},
 // } satisfies ExportedHandler<Env>;
 
+export class RAGWorkflow {
+	async run(event: any, step: any) {
+		await step.do('example step', async () => {
+			console.log('Hello World!');
+		});
+	}
+}
+
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const answer = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
