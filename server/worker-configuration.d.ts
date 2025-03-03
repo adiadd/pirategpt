@@ -6,7 +6,7 @@ interface Env {
 	CLOUDFLARE_TOKEN: string;
 	OP_SCRAPER_DB: D1Database;
 	PIRATEGPT_CHAT_DB: D1Database;
-	ONE_PIECE_VECTORS: VectorizeIndex;
+	OP_VECTOR_INDEX: VectorizeIndex;
 	AI: Ai;
 	RAG_WORKFLOW: Workflow;
 }

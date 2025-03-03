@@ -8,6 +8,7 @@ import { Avatar } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { env } from "~/env";
 
 type Message = {
   id: string;
@@ -98,7 +99,7 @@ export function Chat() {
 
       <div className="p-4">
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             const form = e.target as HTMLFormElement;
             const input = form.elements.namedItem(
@@ -107,29 +108,77 @@ export function Chat() {
             const message = input.value.trim();
             if (message) {
               setIsLoading(true);
-              setMessages([
-                ...messages,
-                {
-                  id: crypto.randomUUID(),
-                  role: "user",
-                  content: message,
-                },
-              ]);
+
+              // Add user message to the chat
+              const userMessage: Message = {
+                id: crypto.randomUUID(),
+                role: "user",
+                content: message,
+              };
+
+              const updatedMessages = [...messages, userMessage];
+              setMessages(updatedMessages);
               input.value = "";
-              // Simulate AI response delay
-              setTimeout(() => {
-                setMessages((prevMessages) => [
-                  ...prevMessages,
-                  {
-                    id: crypto.randomUUID(),
-                    role: "assistant",
-                    content:
-                      "This is a demo response. The actual implementation would use the AI SDK with RAG!",
-                    source: "Chapter 1004, Page 12",
+
+              try {
+                // Send query to the local server
+                console.log("Sending query to server:", message);
+                const apiUrl = env.NEXT_PUBLIC_API_URL;
+                const requestUrl = `${apiUrl}/query?text=${encodeURIComponent(message)}`;
+                console.log("Request URL:", requestUrl);
+
+                const response = await fetch(requestUrl, {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
                   },
-                ]);
+                  mode: "cors",
+                  credentials: "include",
+                });
+
+                console.log("Response status:", response.status);
+
+                if (!response.ok) {
+                  console.error(
+                    "Server response error:",
+                    response.status,
+                    response.statusText,
+                  );
+                  throw new Error(
+                    `Error: ${response.status} ${response.statusText}`,
+                  );
+                }
+
+                const answer = await response.text();
+                console.log(
+                  "Received answer from server:",
+                  answer.substring(0, 100) + "...",
+                );
+
+                // Add assistant response to the chat
+                const assistantMessage: Message = {
+                  id: crypto.randomUUID(),
+                  role: "assistant",
+                  content: answer,
+                  source: "One Piece", // The source is embedded in the answer content from the server
+                };
+
+                setMessages([...updatedMessages, assistantMessage]);
+              } catch (error) {
+                console.error("Error fetching from server:", error);
+
+                // Add error message
+                const errorMessage: Message = {
+                  id: crypto.randomUUID(),
+                  role: "assistant",
+                  content:
+                    "Sorry, there was an error connecting to the One Piece database. Please try again later.",
+                };
+
+                setMessages([...updatedMessages, errorMessage]);
+              } finally {
                 setIsLoading(false);
-              }, 1000);
+              }
             }
           }}
           className="relative mx-auto max-w-4xl"

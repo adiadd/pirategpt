@@ -29,7 +29,7 @@
 	// },
 	"vectorize": [
 		{
-			"binding": "ONE_PIECE_VECTORS",
+			"binding": "OP_VECTOR_INDEX",
 			"index_name": "one-piece-manga"
 		}
 	],
