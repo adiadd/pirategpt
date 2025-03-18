@@ -1,5 +1,7 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { SYSTEM_PROMPT, formatContextMessage } from './prompts';
 
 // Create a new Hono app with typed environment from worker-configuration.d.ts
 const app = new Hono<{ Bindings: Env }>();
@@ -94,42 +96,161 @@ app.get('/query', async (c) => {
 		let mangaContent: { chapterInfo: string; sectionName: string; content: string }[] = [];
 
 		if (sectionIds.length > 0) {
-			// Using placeholders for multiple IDs
-			const placeholders = sectionIds.map(() => '?').join(',');
+			// Log the structure of our IDs
+			console.log('[PirateGPT] Analyzing section IDs structure:', sectionIds.map(id => {
+				const [chapterNum, sectionType, sectionNum] = id.split('-');
+				return { id, chapterNum, sectionType, sectionNum };
+			}));
 
-			// Join chapter_sections with chapters to get complete information
+			// Extract chapter numbers and section types
+			const chapterNumbers = sectionIds.map(id => parseInt(id.split('-')[0], 10));
+			const sectionTypes = [...new Set(sectionIds.map(id => id.split('-')[1]))];
+
+			// Try to get content by chapter numbers and section types
 			const query = `
+				WITH chapter_data AS (
+					SELECT 
+						c.id,
+						c.chapter_number,
+						c.title AS chapter_title
+					FROM chapters c
+					WHERE c.chapter_number IN (${chapterNumbers.map(() => '?').join(',')})
+				)
 				SELECT 
 					cs.id AS section_id,
 					cs.section_name,
 					cs.content,
-					c.chapter_number,
-					c.title AS chapter_title
+					cd.chapter_number,
+					cd.chapter_title
 				FROM 
 					chapter_sections cs
 				JOIN
-					chapters c ON cs.chapter_id = c.id
+					chapter_data cd ON cs.chapter_id = cd.id
 				WHERE 
-					cs.id IN (${placeholders})
+					cs.section_name LIKE ?
 			`;
 
-			const { results } = await c.env.OP_SCRAPER_DB.prepare(query)
-				.bind(...sectionIds)
-				.all();
+			console.log('[PirateGPT] Executing D1 query:', {
+				query,
+				chapterNumbers,
+				sectionTypes,
+				params: [...chapterNumbers, `%${sectionTypes[0]}%`]
+			});
 
-			if (results && results.length > 0) {
-				// Type safe mapping of database results
-				mangaContent = results.map((item) => ({
-					chapterInfo: `Chapter ${String(item.chapter_number || '')}${item.chapter_title ? `: "${String(item.chapter_title)}"` : ''}`,
-					sectionName: String(item.section_name || ''),
-					content: String(item.content || ''),
-				}));
+			try {
+				const { results } = await c.env.OP_SCRAPER_DB.prepare(query)
+					.bind(...chapterNumbers, `%${sectionTypes[0]}%`)
+					.all();
+
+				console.log('[PirateGPT] D1 query results:', {
+					resultsLength: results?.length || 0,
+					results: results
+				});
+
+				if (results && results.length > 0) {
+					// Type safe mapping of database results
+					mangaContent = results.map((item) => ({
+						chapterInfo: `Chapter ${String(item.chapter_number || '')}${item.chapter_title ? `: "${String(item.chapter_title)}"` : ''}`,
+						sectionName: String(item.section_name || ''),
+						content: String(item.content || ''),
+					}));
+					console.log('[PirateGPT] Mapped manga content:', mangaContent);
+				} else {
+					console.log('[PirateGPT] No results found with chapter numbers and section types');
+					
+					// Try a simpler query just by chapter numbers
+					const simpleQuery = `
+						WITH chapter_data AS (
+							SELECT 
+								c.id,
+								c.chapter_number,
+								c.title AS chapter_title
+							FROM chapters c
+							WHERE c.chapter_number IN (${chapterNumbers.map(() => '?').join(',')})
+						)
+						SELECT 
+							cs.id AS section_id,
+							cs.section_name,
+							cs.content,
+							cd.chapter_number,
+							cd.chapter_title
+						FROM 
+							chapter_sections cs
+						JOIN
+							chapter_data cd ON cs.chapter_id = cd.id
+					`;
+
+					console.log('[PirateGPT] Trying simpler query:', {
+						query: simpleQuery,
+						chapterNumbers
+					});
+
+					const { results: simpleResults } = await c.env.OP_SCRAPER_DB.prepare(simpleQuery)
+						.bind(...chapterNumbers)
+						.all();
+
+					if (simpleResults && simpleResults.length > 0) {
+						mangaContent = simpleResults.map((item) => ({
+							chapterInfo: `Chapter ${String(item.chapter_number || '')}${item.chapter_title ? `: "${String(item.chapter_title)}"` : ''}`,
+							sectionName: String(item.section_name || ''),
+							content: String(item.content || ''),
+						}));
+						console.log('[PirateGPT] Found content with simpler query:', mangaContent);
+					} else {
+						console.log('[PirateGPT] No results found with simpler query for chapter numbers:', chapterNumbers);
+						
+						// Try one last time with just the chapter numbers directly
+						const directQuery = `
+							SELECT 
+								cs.id AS section_id,
+								cs.section_name,
+								cs.content,
+								c.chapter_number,
+								c.title AS chapter_title
+							FROM 
+								chapter_sections cs
+							JOIN
+								chapters c ON cs.chapter_id = c.id
+							WHERE 
+								c.chapter_number IN (${chapterNumbers.map(() => '?').join(',')})
+						`;
+
+						console.log('[PirateGPT] Trying direct query:', {
+							query: directQuery,
+							chapterNumbers
+						});
+
+						const { results: directResults } = await c.env.OP_SCRAPER_DB.prepare(directQuery)
+							.bind(...chapterNumbers)
+							.all();
+
+						if (directResults && directResults.length > 0) {
+							mangaContent = directResults.map((item) => ({
+								chapterInfo: `Chapter ${String(item.chapter_number || '')}${item.chapter_title ? `: "${String(item.chapter_title)}"` : ''}`,
+								sectionName: String(item.section_name || ''),
+								content: String(item.content || ''),
+							}));
+							console.log('[PirateGPT] Found content with direct query:', mangaContent);
+						} else {
+							console.log('[PirateGPT] No results found with any query strategy');
+						}
+					}
+				}
+			} catch (error) {
+				console.error('[PirateGPT] Error executing D1 query:', error);
 			}
 		}
 
 		// Format the context message with chapter and section information
 		let contextParts: string[] = [];
 		if (mangaContent.length > 0) {
+			// Sort content by chapter number for better context flow
+			mangaContent.sort((a, b) => {
+				const aNum = parseInt(a.chapterInfo.split(' ')[1]);
+				const bNum = parseInt(b.chapterInfo.split(' ')[1]);
+				return aNum - bNum;
+			});
+
 			mangaContent.forEach((content) => {
 				const sectionHeader = `${content.chapterInfo} - ${content.sectionName}`;
 				const formattedContent = `${sectionHeader}\n${content.content}`;
@@ -137,30 +258,33 @@ app.get('/query', async (c) => {
 			});
 		}
 
-		const contextMessage = contextParts.length > 0 ? `Context from One Piece manga:\n\n${contextParts.join('\n\n')}` : '';
-
-		// Create a One Piece specific system prompt
-		const systemPrompt = `You are PirateGPT, an AI assistant specialized in the One Piece manga. 
-You are an expert on the world of One Piece, the characters, plot developments, and the lore.
-When answering questions, use the provided context from the manga when relevant.
-If you don't know the answer or it's not in the context, be honest about it.
-Answer in the style of a knowledgeable One Piece fan, but remain factual and accurate.
-You can reference specific chapters when that information is available in the context.`;
+		console.log('[PirateGPT] Context parts:', contextParts);
+		const contextMessage = formatContextMessage(contextParts);
+		console.log('[PirateGPT] Context message:', contextMessage);
 
 		// Before AI response
 		console.log('[PirateGPT] Generating AI response');
 
-		// Generate AI response using the manga context
-		const aiResponse: any = await c.env.AI.run('@cf/meta/llama-3-8b-instruct', {
-			messages: [
-				...(contextMessage ? [{ role: 'system', content: contextMessage }] : []),
-				{ role: 'system', content: systemPrompt },
-				{ role: 'user', content: question },
-			],
-		});
+		// Initialize Google AI Studio
+		const genAI = new GoogleGenerativeAI(c.env.GOOGLE_API_KEY);
+		const model = genAI.getGenerativeModel(
+			{ model: "gemini-2.0-flash-lite	" },
+			{
+				baseUrl: `https://gateway.ai.cloudflare.com/v1/${c.env.CLOUDFLARE_ACCOUNT_ID}/${c.env.CLOUDFLARE_GATEWAY_NAME}/google-ai-studio`,
+			}
+		);
 
-		// Extract the answer from the AI response
-		const answer = aiResponse.response || aiResponse.text || 'No response generated';
+		// Prepare the prompt with context and system message
+		const prompt = [
+			...(contextMessage ? [contextMessage] : []),
+			SYSTEM_PROMPT,
+			question
+		].join('\n\n');
+
+		// Generate response
+		const result = await model.generateContent(prompt);
+		const response = result.response;
+		const answer = response.text() || 'No response generated';
 
 		// After AI response
 		console.log('[PirateGPT] AI response generated successfully');

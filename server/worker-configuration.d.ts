@@ -4,6 +4,8 @@ interface Env {
 	CLOUDFLARE_ACCOUNT_ID: string;
 	CLOUDFLARE_D1_DATABASE_ID: string;
 	CLOUDFLARE_TOKEN: string;
+	GOOGLE_API_KEY: string;
+	CLOUDFLARE_GATEWAY_NAME: string;
 	OP_SCRAPER_DB: D1Database;
 	PIRATEGPT_CHAT_DB: D1Database;
 	OP_VECTOR_INDEX: VectorizeIndex;

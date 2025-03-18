@@ -4,8 +4,10 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
+		"dev": "wrangler dev --remote",
+		"start": "wrangler dev --remote",
+		"dev:exp": "wrangler dev --experimental-vectorize-bind-to-prod --remote",
+		"start:exp": "wrangler dev --experimental-vectorize-bind-to-prod --remote",
 		"cf-typegen": "wrangler types"
 	},
 	"devDependencies": {
@@ -14,6 +16,7 @@
 		"wrangler": "^3.111.0"
 	},
 	"dependencies": {
+		"@google/generative-ai": "^0.24.0",
 		"hono": "^4.7.2"
 	}
 }
